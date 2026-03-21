@@ -1,29 +1,67 @@
-import { Link } from 'expo-router';
-import { StyleSheet } from 'react-native';
+import { useEffect } from 'react';
+import { router } from 'expo-router';
+import { View, ActivityIndicator, StyleSheet, Image } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import colors from '../constants/colors';
 
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
+export default function Index() {
+  useEffect(() => {
+    checkAuth();
+  }, []);
 
-export default function ModalScreen() {
+  const checkAuth = async () => {
+    try {
+      // Check if user is authenticated
+      const token = await AsyncStorage.getItem('userToken');
+      
+      // Add a small delay for smooth transition
+      setTimeout(() => {
+        if (token) {
+          // User is authenticated, go to main app (tabs)
+          router.replace('/');
+        } else {
+          // User is not authenticated, go to login
+          router.replace('/(auth)/login');
+        }
+      }, 1000);
+    } catch (error) {
+      console.error('Error checking auth:', error);
+      router.replace('/(auth)/login');
+    }
+  };
+
   return (
-    <ThemedView style={styles.container}>
-      <ThemedText type="title">This is a modal</ThemedText>
-      <Link href="/" dismissTo style={styles.link}>
-        <ThemedText type="link">Go to home screen</ThemedText>
-      </Link>
-    </ThemedView>
+    <View style={styles.container}>
+      {/* TaskHub Logo */}
+      <Image
+        source={require('../assets/images/icon.png')}
+        style={styles.logo}
+        resizeMode="contain"
+      />
+      
+      {/* Loading Indicator */}
+      <ActivityIndicator 
+        size="large" 
+        color={colors.primary} 
+        style={styles.loader}
+      />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'center',
-    padding: 20,
+    alignItems: 'center',
+    backgroundColor: colors.background.primary,
   },
-  link: {
-    marginTop: 15,
-    paddingVertical: 15,
+  logo: {
+    width: 120,
+    height: 120,
+    marginBottom: 20,
+  },
+  loader: {
+    marginTop: 20,
   },
 });
