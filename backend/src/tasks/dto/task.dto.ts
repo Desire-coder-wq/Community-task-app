@@ -1,5 +1,18 @@
 import { IsString, IsOptional, IsEnum, IsDateString, IsUUID } from 'class-validator';
-import { TaskStatus, Priority } from '@prisma/client';
+
+export enum TaskStatus {
+  PENDING = 'PENDING',
+  IN_PROGRESS = 'IN_PROGRESS',
+  COMPLETED = 'COMPLETED',
+  CANCELLED = 'CANCELLED',
+}
+
+export enum Priority {
+  LOW = 'LOW',
+  MEDIUM = 'MEDIUM',
+  HIGH = 'HIGH',
+  URGENT = 'URGENT',
+}
 
 export class CreateTaskDto {
   @IsString()

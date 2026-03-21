@@ -1,7 +1,6 @@
 import { Controller, Get, Post, Put, Delete, Body, Param, Query } from '@nestjs/common';
 import { TasksService } from './tasks.service';
-import { CreateTaskDto, UpdateTaskDto } from './dto/task.dto';
-import { TaskStatus } from '@prisma/client';
+import { CreateTaskDto, UpdateTaskDto, TaskStatus } from './dto/task.dto';
 
 @Controller('tasks')
 export class TasksController {
