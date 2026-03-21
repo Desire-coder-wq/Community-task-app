@@ -17,6 +17,7 @@ export declare class TasksController {
             updatedAt: Date;
             name: string;
             email: string;
+            password: string;
             avatar: string | null;
         };
         creator: {
@@ -25,6 +26,7 @@ export declare class TasksController {
             updatedAt: Date;
             name: string;
             email: string;
+            password: string;
             avatar: string | null;
         };
     } & {
@@ -54,6 +56,7 @@ export declare class TasksController {
             updatedAt: Date;
             name: string;
             email: string;
+            password: string;
             avatar: string | null;
         };
         creator: {
@@ -62,6 +65,7 @@ export declare class TasksController {
             updatedAt: Date;
             name: string;
             email: string;
+            password: string;
             avatar: string | null;
         };
     } & {
@@ -93,6 +97,7 @@ export declare class TasksController {
             updatedAt: Date;
             name: string;
             email: string;
+            password: string;
             avatar: string | null;
         };
         creator: {
@@ -101,6 +106,7 @@ export declare class TasksController {
             updatedAt: Date;
             name: string;
             email: string;
+            password: string;
             avatar: string | null;
         };
     } & {
@@ -130,6 +136,7 @@ export declare class TasksController {
             updatedAt: Date;
             name: string;
             email: string;
+            password: string;
             avatar: string | null;
         };
         creator: {
@@ -138,6 +145,7 @@ export declare class TasksController {
             updatedAt: Date;
             name: string;
             email: string;
+            password: string;
             avatar: string | null;
         };
     } & {
@@ -180,6 +188,7 @@ export declare class TasksController {
             updatedAt: Date;
             name: string;
             email: string;
+            password: string;
             avatar: string | null;
         };
         creator: {
@@ -188,6 +197,7 @@ export declare class TasksController {
             updatedAt: Date;
             name: string;
             email: string;
+            password: string;
             avatar: string | null;
         };
     } & {
@@ -217,6 +227,7 @@ export declare class TasksController {
             updatedAt: Date;
             name: string;
             email: string;
+            password: string;
             avatar: string | null;
         };
         creator: {
@@ -225,6 +236,7 @@ export declare class TasksController {
             updatedAt: Date;
             name: string;
             email: string;
+            password: string;
             avatar: string | null;
         };
     } & {

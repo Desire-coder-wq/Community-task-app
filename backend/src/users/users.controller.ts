@@ -1,8 +1,19 @@
-import { Controller, Get, Post, Put, Delete, Body, Param, Query } from '@nestjs/common';
+import { 
+  Controller, 
+  Get, 
+  Post, 
+  Put, 
+  Delete, 
+  Body, 
+  Param, 
+  UseGuards 
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto, UpdateUserDto } from './dto/user.dto';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('users')
+@UseGuards(JwtAuthGuard) // Protect all routes in this controller
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
@@ -19,11 +30,6 @@ export class UsersController {
   @Get('email/:email')
   async findByEmail(@Param('email') email: string) {
     return this.usersService.findByEmail(email);
-  }
-
-  @Post()
-  async create(@Body() dto: CreateUserDto) {
-    return this.usersService.create(dto);
   }
 
   @Put(':id')

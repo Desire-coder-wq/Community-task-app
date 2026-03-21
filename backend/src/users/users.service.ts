@@ -1,6 +1,6 @@
-import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { CreateUserDto, UpdateUserDto } from './dto/user.dto';
+import { UpdateUserDto } from './dto/user.dto';
 
 @Injectable()
 export class UsersService {
@@ -9,8 +9,30 @@ export class UsersService {
   async findAll() {
     return this.prisma.user.findMany({
       include: {
-        tasks: true,
-        createdTasks: true,
+        tasks: {
+          select: {
+            id: true,
+            title: true,
+            description: true,
+            status: true,
+            priority: true,
+            dueDate: true,
+            createdAt: true,
+            updatedAt: true,
+          },
+        },
+        createdTasks: {
+          select: {
+            id: true,
+            title: true,
+            description: true,
+            status: true,
+            priority: true,
+            dueDate: true,
+            createdAt: true,
+            updatedAt: true,
+          },
+        },
       },
     });
   }
@@ -19,8 +41,30 @@ export class UsersService {
     const user = await this.prisma.user.findUnique({
       where: { id },
       include: {
-        tasks: true,
-        createdTasks: true,
+        tasks: {
+          select: {
+            id: true,
+            title: true,
+            description: true,
+            status: true,
+            priority: true,
+            dueDate: true,
+            createdAt: true,
+            updatedAt: true,
+          },
+        },
+        createdTasks: {
+          select: {
+            id: true,
+            title: true,
+            description: true,
+            status: true,
+            priority: true,
+            dueDate: true,
+            createdAt: true,
+            updatedAt: true,
+          },
+        },
       },
     });
 
@@ -32,32 +76,41 @@ export class UsersService {
   }
 
   async findByEmail(email: string) {
-    return this.prisma.user.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: { email },
       include: {
-        tasks: true,
-        createdTasks: true,
+        tasks: {
+          select: {
+            id: true,
+            title: true,
+            description: true,
+            status: true,
+            priority: true,
+            dueDate: true,
+            createdAt: true,
+            updatedAt: true,
+          },
+        },
+        createdTasks: {
+          select: {
+            id: true,
+            title: true,
+            description: true,
+            status: true,
+            priority: true,
+            dueDate: true,
+            createdAt: true,
+            updatedAt: true,
+          },
+        },
       },
     });
-  }
 
-  async create(dto: CreateUserDto) {
-    // Check if user already exists
-    const existingUser = await this.prisma.user.findUnique({
-      where: { email: dto.email },
-    });
-
-    if (existingUser) {
-      throw new ConflictException(`User with email ${dto.email} already exists`);
+    if (!user) {
+      throw new NotFoundException(`User with email ${email} not found`);
     }
 
-    return this.prisma.user.create({
-      data: {
-        email: dto.email,
-        name: dto.name,
-        avatar: dto.avatar,
-      },
-    });
+    return user;
   }
 
   async update(id: string, dto: UpdateUserDto) {
@@ -69,6 +122,15 @@ export class UsersService {
         name: dto.name,
         avatar: dto.avatar,
       },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        avatar: true,
+        createdAt: true,
+        updatedAt: true,
+        // Don't return password
+      },
     });
   }
 
@@ -77,6 +139,15 @@ export class UsersService {
 
     return this.prisma.user.delete({
       where: { id },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        avatar: true,
+        createdAt: true,
+        updatedAt: true,
+        // Don't return password
+      },
     });
   }
 }

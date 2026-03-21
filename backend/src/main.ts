@@ -1,11 +1,11 @@
 import 'reflect-metadata';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.setGlobalPrefix('api');
   
   // Enable CORS for frontend communication
   app.enableCors({
@@ -13,18 +13,35 @@ async function bootstrap() {
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
+
+  // Enable validation globally
+  app.useGlobalPipes(new ValidationPipe());
   
   const port = process.env.PORT || 3001;
 
+  // Swagger configuration
   const swaggerConfig = new DocumentBuilder()
-    .setTitle('Task App API')
-    .setDescription('Community Task App backend API')
+    .setTitle('TaskHub API')
+    .setDescription('Community Task Management Application API')
     .setVersion('1.0')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        name: 'JWT',
+        description: 'Enter JWT token',
+        in: 'header',
+      },
+      'JWT-auth', // This name here is important for matching up with @ApiBearerAuth() in your controller!
+    )
     .build();
+  
   const document = SwaggerModule.createDocument(app, swaggerConfig);
-  SwaggerModule.setup('', app, document, { useGlobalPrefix: true });
+  SwaggerModule.setup('docs', app, document);
 
   await app.listen(port);
   console.log(`🚀 Server running on http://localhost:${port}`);
+  console.log(`📚 Swagger docs available at http://localhost:${port}/docs`);
 }
 bootstrap();

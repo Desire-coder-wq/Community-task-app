@@ -19,8 +19,30 @@ let UsersService = class UsersService {
     async findAll() {
         return this.prisma.user.findMany({
             include: {
-                tasks: true,
-                createdTasks: true,
+                tasks: {
+                    select: {
+                        id: true,
+                        title: true,
+                        description: true,
+                        status: true,
+                        priority: true,
+                        dueDate: true,
+                        createdAt: true,
+                        updatedAt: true,
+                    },
+                },
+                createdTasks: {
+                    select: {
+                        id: true,
+                        title: true,
+                        description: true,
+                        status: true,
+                        priority: true,
+                        dueDate: true,
+                        createdAt: true,
+                        updatedAt: true,
+                    },
+                },
             },
         });
     }
@@ -28,8 +50,30 @@ let UsersService = class UsersService {
         const user = await this.prisma.user.findUnique({
             where: { id },
             include: {
-                tasks: true,
-                createdTasks: true,
+                tasks: {
+                    select: {
+                        id: true,
+                        title: true,
+                        description: true,
+                        status: true,
+                        priority: true,
+                        dueDate: true,
+                        createdAt: true,
+                        updatedAt: true,
+                    },
+                },
+                createdTasks: {
+                    select: {
+                        id: true,
+                        title: true,
+                        description: true,
+                        status: true,
+                        priority: true,
+                        dueDate: true,
+                        createdAt: true,
+                        updatedAt: true,
+                    },
+                },
             },
         });
         if (!user) {
@@ -38,28 +82,39 @@ let UsersService = class UsersService {
         return user;
     }
     async findByEmail(email) {
-        return this.prisma.user.findUnique({
+        const user = await this.prisma.user.findUnique({
             where: { email },
             include: {
-                tasks: true,
-                createdTasks: true,
+                tasks: {
+                    select: {
+                        id: true,
+                        title: true,
+                        description: true,
+                        status: true,
+                        priority: true,
+                        dueDate: true,
+                        createdAt: true,
+                        updatedAt: true,
+                    },
+                },
+                createdTasks: {
+                    select: {
+                        id: true,
+                        title: true,
+                        description: true,
+                        status: true,
+                        priority: true,
+                        dueDate: true,
+                        createdAt: true,
+                        updatedAt: true,
+                    },
+                },
             },
         });
-    }
-    async create(dto) {
-        const existingUser = await this.prisma.user.findUnique({
-            where: { email: dto.email },
-        });
-        if (existingUser) {
-            throw new common_1.ConflictException(`User with email ${dto.email} already exists`);
+        if (!user) {
+            throw new common_1.NotFoundException(`User with email ${email} not found`);
         }
-        return this.prisma.user.create({
-            data: {
-                email: dto.email,
-                name: dto.name,
-                avatar: dto.avatar,
-            },
-        });
+        return user;
     }
     async update(id, dto) {
         await this.findOne(id);
@@ -69,12 +124,28 @@ let UsersService = class UsersService {
                 name: dto.name,
                 avatar: dto.avatar,
             },
+            select: {
+                id: true,
+                email: true,
+                name: true,
+                avatar: true,
+                createdAt: true,
+                updatedAt: true,
+            },
         });
     }
     async remove(id) {
         await this.findOne(id);
         return this.prisma.user.delete({
             where: { id },
+            select: {
+                id: true,
+                email: true,
+                name: true,
+                avatar: true,
+                createdAt: true,
+                updatedAt: true,
+            },
         });
     }
 };

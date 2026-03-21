@@ -1,34 +1,28 @@
 import { UsersService } from './users.service';
-import { CreateUserDto, UpdateUserDto } from './dto/user.dto';
+import { UpdateUserDto } from './dto/user.dto';
 export declare class UsersController {
     private readonly usersService;
     constructor(usersService: UsersService);
     findAll(): Promise<({
         tasks: {
             title: string;
-            description: string | null;
+            description: string;
             priority: import(".prisma/client").$Enums.Priority;
-            dueDate: Date | null;
-            assigneeId: string | null;
-            communityId: string | null;
+            dueDate: Date;
             status: import(".prisma/client").$Enums.TaskStatus;
             id: string;
             createdAt: Date;
             updatedAt: Date;
-            creatorId: string;
         }[];
         createdTasks: {
             title: string;
-            description: string | null;
+            description: string;
             priority: import(".prisma/client").$Enums.Priority;
-            dueDate: Date | null;
-            assigneeId: string | null;
-            communityId: string | null;
+            dueDate: Date;
             status: import(".prisma/client").$Enums.TaskStatus;
             id: string;
             createdAt: Date;
             updatedAt: Date;
-            creatorId: string;
         }[];
     } & {
         id: string;
@@ -36,34 +30,29 @@ export declare class UsersController {
         updatedAt: Date;
         name: string;
         email: string;
+        password: string;
         avatar: string | null;
     })[]>;
     findOne(id: string): Promise<{
         tasks: {
             title: string;
-            description: string | null;
+            description: string;
             priority: import(".prisma/client").$Enums.Priority;
-            dueDate: Date | null;
-            assigneeId: string | null;
-            communityId: string | null;
+            dueDate: Date;
             status: import(".prisma/client").$Enums.TaskStatus;
             id: string;
             createdAt: Date;
             updatedAt: Date;
-            creatorId: string;
         }[];
         createdTasks: {
             title: string;
-            description: string | null;
+            description: string;
             priority: import(".prisma/client").$Enums.Priority;
-            dueDate: Date | null;
-            assigneeId: string | null;
-            communityId: string | null;
+            dueDate: Date;
             status: import(".prisma/client").$Enums.TaskStatus;
             id: string;
             createdAt: Date;
             updatedAt: Date;
-            creatorId: string;
         }[];
     } & {
         id: string;
@@ -71,34 +60,29 @@ export declare class UsersController {
         updatedAt: Date;
         name: string;
         email: string;
+        password: string;
         avatar: string | null;
     }>;
     findByEmail(email: string): Promise<{
         tasks: {
             title: string;
-            description: string | null;
+            description: string;
             priority: import(".prisma/client").$Enums.Priority;
-            dueDate: Date | null;
-            assigneeId: string | null;
-            communityId: string | null;
+            dueDate: Date;
             status: import(".prisma/client").$Enums.TaskStatus;
             id: string;
             createdAt: Date;
             updatedAt: Date;
-            creatorId: string;
         }[];
         createdTasks: {
             title: string;
-            description: string | null;
+            description: string;
             priority: import(".prisma/client").$Enums.Priority;
-            dueDate: Date | null;
-            assigneeId: string | null;
-            communityId: string | null;
+            dueDate: Date;
             status: import(".prisma/client").$Enums.TaskStatus;
             id: string;
             createdAt: Date;
             updatedAt: Date;
-            creatorId: string;
         }[];
     } & {
         id: string;
@@ -106,14 +90,7 @@ export declare class UsersController {
         updatedAt: Date;
         name: string;
         email: string;
-        avatar: string | null;
-    }>;
-    create(dto: CreateUserDto): Promise<{
-        id: string;
-        createdAt: Date;
-        updatedAt: Date;
-        name: string;
-        email: string;
+        password: string;
         avatar: string | null;
     }>;
     update(id: string, dto: UpdateUserDto): Promise<{
@@ -122,7 +99,7 @@ export declare class UsersController {
         updatedAt: Date;
         name: string;
         email: string;
-        avatar: string | null;
+        avatar: string;
     }>;
     remove(id: string): Promise<{
         id: string;
@@ -130,6 +107,6 @@ export declare class UsersController {
         updatedAt: Date;
         name: string;
         email: string;
-        avatar: string | null;
+        avatar: string;
     }>;
 }

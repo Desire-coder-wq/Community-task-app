@@ -3,6 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
 }
 
 datasource db {
@@ -15,31 +16,32 @@ model User {
   id        String   @id @default(uuid())
   email     String   @unique
   name      String
+  password  String   // Added password field for authentication
   avatar    String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  
+
   // Relations
-  tasks     Task[]   @relation("AssignedTasks")
+  tasks        Task[] @relation("AssignedTasks")
   createdTasks Task[] @relation("CreatedTasks")
 }
 
 // Task model for community tasks
 model Task {
-  id          String   @id @default(uuid())
+  id          String     @id @default(uuid())
   title       String
   description String?
   status      TaskStatus @default(PENDING)
-  priority    Priority @default(MEDIUM)
+  priority    Priority   @default(MEDIUM)
   dueDate     DateTime?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
   // Relations
   assigneeId  String?
-  assignee    User?    @relation("AssignedTasks", fields: [assigneeId], references: [id])
+  assignee    User?      @relation("AssignedTasks", fields: [assigneeId], references: [id])
   creatorId   String
-  creator     User     @relation("CreatedTasks", fields: [creatorId], references: [id])
+  creator     User       @relation("CreatedTasks", fields: [creatorId], references: [id])
   communityId String?
   community   Community? @relation(fields: [communityId], references: [id])
 }
@@ -50,9 +52,9 @@ model Community {
   description String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  
+
   // Relations
-  tasks       Task[]
+  tasks Task[]
 }
 
 enum TaskStatus {
