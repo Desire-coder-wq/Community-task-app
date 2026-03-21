@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { useState } from 'react';
 import {
   View,
@@ -49,7 +50,7 @@ export default function LoginScreen() {
       if (response.ok) {
         await AsyncStorage.setItem('userToken', data.token);
         await AsyncStorage.setItem('user', JSON.stringify(data.user));
-        router.replace('/');
+        router.replace('./(tabs)');
       } else {
         Alert.alert('Login Failed', data.message || 'Invalid credentials');
       }
