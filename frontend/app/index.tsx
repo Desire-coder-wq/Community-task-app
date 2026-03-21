@@ -34,7 +34,7 @@ export default function Index() {
     <View style={styles.container}>
       {/* TaskHub Logo */}
       <Image
-        source={require('../assets/images/icon.png')}
+        source={require('../assets/images/icon (1).png')}
         style={styles.logo}
         resizeMode="contain"
       />

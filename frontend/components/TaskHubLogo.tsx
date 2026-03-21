@@ -23,7 +23,7 @@ export const TaskHubLogo: React.FC<TaskHubLogoProps> = ({
   return (
     <View style={[styles.container, style]}>
       <Image
-        source={require('../assets/images/icon.png')}
+        source={require('../assets/images/icon (1).png')}
         style={[
           {
             width: size,
@@ -50,7 +50,7 @@ export const TaskHubIcon: React.FC<{
 }> = ({ size = 64, style }) => {
   return (
     <Image
-      source={require('../assets/images/icon.png')}
+      source={require('../assets/images/icon (1).png')}
       style={[
         {
           width: size,

@@ -24,7 +24,7 @@ export declare class AuthService {
             updatedAt: Date;
             name: string;
             email: string;
-            avatar: string;
+            avatar: string | null;
         };
         token: string;
         message: string;

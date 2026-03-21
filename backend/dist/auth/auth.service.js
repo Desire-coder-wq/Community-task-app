@@ -88,15 +88,6 @@ let AuthService = class AuthService {
     async login(dto) {
         const user = await this.prisma.user.findUnique({
             where: { email: dto.email.toLowerCase() },
-            select: {
-                id: true,
-                email: true,
-                name: true,
-                avatar: true,
-                password: true,
-                createdAt: true,
-                updatedAt: true,
-            },
         });
         if (!user) {
             throw new common_1.UnauthorizedException('Invalid credentials');
@@ -109,7 +100,7 @@ let AuthService = class AuthService {
             sub: user.id,
             email: user.email,
         });
-        const { password: _, ...userWithoutPassword } = user;
+        const { password, ...userWithoutPassword } = user;
         return {
             user: userWithoutPassword,
             token,
