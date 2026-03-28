@@ -1,1 +1,14 @@
-node_modules
+# dependencies
+node_modules/
+
+# expo
+.expo/
+dist/
+
+# env files
+.env
+.env.*
+
+# logs
+npm-debug.log*
+yarn-debug.log*

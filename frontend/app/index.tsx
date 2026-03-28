@@ -1,9 +1,9 @@
 import { router } from 'expo-router';
 import {
   View,
+  Text,
   StyleSheet,
   Image,
-  Text,
   ImageBackground,
   TouchableOpacity,
 } from 'react-native';
@@ -27,33 +27,19 @@ export default function Index() {
           />
         </View>
 
-        {/* Center Content */}
-        <View style={styles.centerContent}>
-          <Text style={styles.title}>TaskHub</Text>
-
-          <Text style={styles.subtitle}>
-            Organize your tasks effortlessly
-          </Text>
-          <Text style={styles.subtitle}>
-            Stay focused. Stay productive.
-          </Text>
-          <Text style={styles.subtitle}>
-            Turn ideas into action.
-          </Text>
-        </View>
+        {/* Spacer to reduce "full stretched" feeling */}
+        <View style={styles.middleSpace} />
 
         {/* Bottom Buttons */}
         <View style={styles.bottomContainer}>
           
-          {/* Get Started / Sign Up */}
           <TouchableOpacity
             style={styles.primaryButton}
-            onPress={() => router.push('/(auth)/signup')}
+            onPress={() => router.push('/(auth)/register')}
           >
             <Text style={styles.primaryText}>Get Started</Text>
           </TouchableOpacity>
 
-          {/* Login */}
           <TouchableOpacity
             style={styles.secondaryButton}
             onPress={() => router.push('/(auth)/login')}
@@ -74,69 +60,53 @@ const styles = StyleSheet.create({
 
   overlay: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.6)',
-    justifyContent: 'space-between',
+    backgroundColor: 'rgba(0,0,0,0.4)', // lighter since bg already has text
   },
 
   topContainer: {
-    paddingTop: 60,
+    paddingTop: 50,
     paddingHorizontal: 20,
   },
 
   logo: {
-    width: 50,
-    height: 50,
+    width: 45,
+    height: 45,
   },
 
-  centerContent: {
-    alignItems: 'center',
-    paddingHorizontal: 30,
-  },
-
-  title: {
-    fontSize: 36,
-    fontWeight: 'bold',
-    color: colors.text.inverse,
-    marginBottom: 20,
-  },
-
-  subtitle: {
-    fontSize: 16,
-    color: colors.text.tertiary,
-    textAlign: 'center',
-    marginBottom: 6,
+  middleSpace: {
+    flex: 1,
   },
 
   bottomContainer: {
     paddingHorizontal: 20,
-    paddingBottom: 40,
+    paddingBottom: 80, // 👈 pushed up from bottom
   },
 
   primaryButton: {
     backgroundColor: colors.primary,
-    paddingVertical: 15,
+    paddingVertical: 14,
     borderRadius: 10,
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 12,
   },
 
   primaryText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '600',
   },
 
   secondaryButton: {
     borderWidth: 1,
     borderColor: '#fff',
-    paddingVertical: 15,
+    paddingVertical: 14,
     borderRadius: 10,
     alignItems: 'center',
   },
 
   secondaryText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '600',
   },
 });
